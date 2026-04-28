@@ -522,7 +522,7 @@
 
 <script>
   // ── PUT YOUR REAL EMAIL HERE ──
-  const BUSINESS_EMAIL = 'nosydread@gmail.com';
+  const BUSINESS_EMAIL = 'https://formspree.io/f/maqagzok';
 
   const planLabels = {
     single: 'Single Bin — $7',
@@ -590,13 +590,20 @@ Thanks,
 ${name}`
     );
 
-    window.location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
-
-    // Show thank you after a brief delay (gives mailto time to open)
-    setTimeout(() => {
-      document.getElementById('formView').style.display = 'none';
-      document.getElementById('thankyouView').classList.add('show');
-    }, 700);
+    fetch(FORMSPREE_URL, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ package: planLabel, name, email, address, message })
+})
+.then(res => {
+  if (res.ok) {
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('thankyouView').classList.add('show');
+  } else {
+    alert('Something went wrong. Please try again.');
+  }
+})
+.catch(() => alert('Could not send — check your internet connection.'));
   }
 
   // Nav highlight on scroll
