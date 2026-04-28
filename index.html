@@ -522,7 +522,7 @@
 
 <script>
   // ── PUT YOUR REAL EMAIL HERE ──
-  const BUSINESS_EMAIL = 'https://formspree.io/f/maqagzok';
+  const FORMSPREE_EMAIL = 'https://formspree.io/f/maqagzok';
 
   const planLabels = {
     single: 'Single Bin — $7',
@@ -572,23 +572,6 @@
     if (!address)  { alert('Please enter your street address.'); return; }
 
     const planLabel = planLabels[selected.dataset.value];
-    const subject   = encodeURIComponent(`Bin Wash Booking – ${planLabel}`);
-    const body      = encodeURIComponent(
-`Hi Noah,
-
-I'd like to book a bin wash.
-
-Package: ${planLabel}
-Name: ${name}
-Email: ${email}
-Address: ${address}
-${message ? '\nExtra info:\n' + message : ''}
-
-Please get back to me to confirm a time.
-
-Thanks,
-${name}`
-    );
 
     fetch(FORMSPREE_URL, {
   method: 'POST',
